@@ -109,34 +109,36 @@ def controls(controlCommand): #this function listens for each trigger and execut
     time.sleep(0.1)
    os.system('irsend SEND_ONCE samsung KEY_ENTER')
    print "Input switched!"
+  if(controlCommand["trigger"] == "tvpwr"):
+   os.system('irsend SEND_ONCE samsung KEY_POWER')
+   print "TV power command sent"  
   
   #heater commands
-  header = "x"
-  if(controlCommand["trigger"] == "temperature"):
+  if(controlCommand["trigger"] == "temperature"): 
    val = controlCommand["status"]
-   valcheck = int(val)
-   if(valcheck >= 59 and valcheck <= 80):
-    tdata = header + "d" + val
-    #port = serial.Serial("/dev/rfcomm0", baudrate=9600)
-    # rfcomm0 -> this could be different
-    #while True:
-     #print "DIGITAL LOGIC -- > SENDING..."
-     #port.write(tdata)
-     #rcv = port.readline()
-     #if rcv:
-      #print(rcv)
-      #time.sleep(3)
-    print tdata
-  if(controlCommand["trigger"] == "timer"): 
+   tdata = "xd" + val
+   port = serial.Serial("/dev/rfcomm0", baudrate=9600)
+   while True:
+    print "SENDING..."
+    port.write(tdata)
+    rcv = port.readline()
+    if rcv:
+     print(rcv)
+     break
+  if(controlCommand["trigger"] == "timer"):
    val = controlCommand["status"]
-   valcheck = int(val)
-   if(valcheck <= 12 and valcheck >= 1):
-    tdata = header + "t" + val
-    print "Setting timer for "
-    print val
+   tdata = "xt" + val
+   port = serial.Serial("/dev/rfcomm0", baudrate=9600)
+   while True:
+    print "SENDING..."
+    port.write(tdata)
+    rcv = port.readline()
+    if rcv:
+     print(rcv)
+  if(controlCommand["trigger"] == "heaterpwr"): 
+   os.system('sudo python /home/pi/automation/heater/xo.py')  
   if(controlCommand["trigger"] == "preheat"):
-   tdata = "xp"
-   print "preheating"
+    os.system('sudo python /home/pi/automation/heater/xp.py')
  else:
   pass
  
