@@ -1,9 +1,9 @@
-#Script for heater on
+#Script for heater off
 
 import serial 
 import sys
 
-tdata= "xo00"
+tdata= "xf00"
    
 port = serial.Serial("/dev/rfcomm0", baudrate=9600)
 while True:

@@ -135,8 +135,10 @@ def controls(controlCommand): #this function listens for each trigger and execut
     rcv = port.readline()
     if rcv:
      print(rcv)
-  if(controlCommand["trigger"] == "heaterpwr"): 
+  if(controlCommand["trigger"] == "heateron"): 
    os.system('sudo python /home/pi/automation/heater/xo.py')  
+  if(controlCommand["trigger"] == "heateroff"):
+   os.system('sudo python /home/pi/automation/heater/xf.py')
   if(controlCommand["trigger"] == "preheat"):
     os.system('sudo python /home/pi/automation/heater/xp.py')
  else:
