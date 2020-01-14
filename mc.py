@@ -21,6 +21,8 @@ N64RST = 2
 N6433 = 3
 N6412 = 4
 
+os.system('sudo python /home/pi/automation/heater/repair.py')
+
 def init(): #initalize the pubnub keys and start subscribing
  
  #Pubnub Initialization

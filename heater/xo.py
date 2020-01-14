@@ -1,4 +1,4 @@
-#Script for heater on
+#Script for heater on/off
 
 import serial 
 import sys
